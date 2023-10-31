@@ -127,6 +127,12 @@ export default function SecondModal({
     localStorage.setItem("token", JSON.stringify(token));
     setSecondModal(false);
   };
+
+  const onClickHandler2 = () => {
+    setSecondModal(false);
+    sessionStorage.setItem("modal", JSON.stringify(true));
+  };
+
   return (
     <Wrapper>
       <ModalContent>
@@ -143,11 +149,11 @@ export default function SecondModal({
           </ExplainDiv>
         </HeaderDiv>
         <ButtonDiv>
-          <NextButtonDiv>
+          <NextButtonDiv onClick={onClickHandler2}>
             <ButtonP>다음에 하기</ButtonP>
           </NextButtonDiv>
-          <YesButtonDiv>
-            <ButtonP onClick={onClickHandler}>로그인 유지하기</ButtonP>
+          <YesButtonDiv onClick={onClickHandler}>
+            <ButtonP>로그인 유지하기</ButtonP>
           </YesButtonDiv>
         </ButtonDiv>
       </ModalContent>

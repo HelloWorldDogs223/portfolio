@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import "../assets/fonts/fonts.css";
 
@@ -112,7 +111,19 @@ export const ButtonP = styled.p`
   white-space: nowrap;
 `;
 
-export default function ThirdModal() {
+interface PropsType {
+  setThirdModal: (bool: boolean) => void;
+}
+
+export default function ThirdModal({ setThirdModal }: PropsType) {
+  const nextClickHandler = () => {
+    setThirdModal(false);
+  };
+
+  const yesClickHandler = () => {
+    setThirdModal(false);
+  };
+
   return (
     <Wrapper>
       <ModalContent>
@@ -129,10 +140,10 @@ export default function ThirdModal() {
           </ExplainDiv>
         </HeaderDiv>
         <ButtonDiv>
-          <NextButtonDiv>
+          <NextButtonDiv onClick={nextClickHandler}>
             <ButtonP>다음에 하기</ButtonP>
           </NextButtonDiv>
-          <YesButtonDiv>
+          <YesButtonDiv onClick={yesClickHandler}>
             <ButtonP>학생 초대하기</ButtonP>
           </YesButtonDiv>
         </ButtonDiv>

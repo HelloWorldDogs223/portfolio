@@ -21,12 +21,12 @@ import {
   UserImg,
   Wrapper,
 } from "../styles/LoginLadingStyle";
+import ThirdModal from "../components/ThirdModal";
 
 export default function LoginLading() {
   const [isTeacher, setIsTeacher] = useState(false);
   const [secondModal, setSecondModal] = useState(false);
-  const [localUserId, setLocalUserId] = useState(0);
-  const [localToken, setLocalToken] = useState("");
+  const [thirdModal, setThirdModal] = useState(false);
   const [userId, setUserId] = useState(0);
   const [token, setToken] = useState("");
   const location = useLocation();
@@ -45,15 +45,26 @@ export default function LoginLading() {
     setUserId(JSON.parse(sessionStorage.getItem("id") || "{}"));
     setToken(JSON.parse(sessionStorage.getItem("token") || "{}"));
 
-    setLocalToken(JSON.parse(localStorage.getItem("token") || "{}"));
-    setLocalUserId(JSON.parse(localStorage.getItem("id") || "{}"));
-
     if (location.state && location.state.teacher) setIsTeacher(true);
 
-    if (localStorage.getItem("token") === null) {
+    if (
+      localStorage.getItem("token") === null &&
+      sessionStorage.getItem("modal") === null
+    ) {
       setSecondModal(true);
     }
   }, []);
+
+  useEffect(() => {
+    // @TODO : API로부터 유저 정보와 학급 정보를 받아와서, 만약에 학생이 한 명도 없다면 ThridModal을 불러온다.
+    if (!secondModal) {
+      setThirdModal(true);
+    }
+  }, []);
+
+  const startClickHandler = () => {
+    navigate("/init");
+  };
 
   return (
     <>
@@ -81,7 +92,7 @@ export default function LoginLading() {
                 <span>교직 생활에 스마트함을 더하세요</span>
               </ContentP2>
               <ButtonDiv>
-                <StartButton>
+                <StartButton onClick={startClickHandler}>
                   <StartP>무료 체험하기</StartP>
                 </StartButton>
                 <AskButton>
@@ -99,6 +110,7 @@ export default function LoginLading() {
           setSecondModal={setSecondModal}
         />
       )}
+      {thirdModal && <ThirdModal setThirdModal={setThirdModal} />}
     </>
   );
 }
