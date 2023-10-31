@@ -4,6 +4,7 @@ import LoginLading from "./pages/LoginLanding";
 import store from "./redux/index";
 import { Provider } from "react-redux";
 import InitPage from "./pages/InitPage";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<LadingPage />} />
           <Route path="/login" element={<LoginLading />} />
           <Route path="/init" element={<InitPage />} />
+          <Route path="/main" element={<MainPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
